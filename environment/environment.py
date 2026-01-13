@@ -7,9 +7,9 @@ import pybullet as p
 import pybullet_data
 from gymnasium import spaces
 
-from rcj_soccer_reinforcement_learning_pybullet.object.unit import Unit
-from rcj_soccer_reinforcement_learning_pybullet.tools.calculation_tools import CalculationTool
-from rcj_soccer_reinforcement_learning_pybullet.reward_function.reward_function import RewardFunction
+from object.unit import Unit
+from tools.calculation_tools import CalculationTool
+from reward_function.reward_function import RewardFunction
 
 class Environment(gym.Env):
     def __init__(self, create_position, max_steps, magnitude, gui=False):

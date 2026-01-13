@@ -5,7 +5,7 @@ import math
 import pybullet as p
 import numpy as np
 
-from rcj_soccer_reinforcement_learning_pybullet.tools.calculation_tools import CalculationTool
+from tools.calculation_tools import CalculationTool
 
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -173,7 +173,7 @@ class Agent(Robot):
         return rgb_image
 
 
-class AlgorithmRobot(Robot):
+class MyRobot(Robot):
     def __init__(self, create_position, mode='ally'):
         super().__init__()
         self.cp = create_position
@@ -202,14 +202,6 @@ class AlgorithmRobot(Robot):
             meshScale=[0.0001, 0.0001, 0.0001]
         )
 
-        # agent_collision = p.createCollisionShape(
-        #     shapeType=p.GEOM_CYLINDER,
-        #     radius=self.radius,
-        #     height=self.height
-        # )
-
-        # visual_shift = [0, 0, -self.height / 2]
-
         robot_visual = p.createVisualShape(
             shapeType=p.GEOM_MESH,
             fileName=robot_visual_path,
@@ -228,13 +220,10 @@ class AlgorithmRobot(Robot):
 
         return robot_id
 
-
-    def action(self, agent_id, magnitude=21.0):
-        """ロボットを動かすメソッド"""
+    def action(self, agent_id, angle_deg=0, rotate=0, magnitude=21.0):
 
         dynamics_info = p.getDynamicsInfo(agent_id, -1)
         center_of_mass = dynamics_info[3]  # 重心
-
 
         p.changeDynamics(
             bodyUniqueId=agent_id,
@@ -245,10 +234,13 @@ class AlgorithmRobot(Robot):
             angularDamping=0.5  # 回転の減衰
         )
 
+        x, y = self.cal.vector_calculations(angle_deg=angle_deg, magnitude=magnitude)
+        angular_vector = self.cal.angular_vector_calculation(rotate)
+
         p.applyExternalForce(
             objectUniqueId=agent_id,
             linkIndex=-1,
-            forceObj=[0.0, 0.0, 0.0],
+            forceObj=[x, y, 0.0],
             posObj=center_of_mass,
             flags=p.LINK_FRAME
         )
@@ -256,7 +248,7 @@ class AlgorithmRobot(Robot):
         p.applyExternalTorque(
             objectUniqueId=agent_id,
             linkIndex=-1,
-            torqueObj=[0.0, 0.0, 0.0],
+            torqueObj=[0.0, 0.0, angular_vector],
             flags=p.LINK_FRAME
         )
 

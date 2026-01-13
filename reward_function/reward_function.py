@@ -1,7 +1,7 @@
 import pybullet as p
 
-from rcj_soccer_reinforcement_learning_pybullet.tools.calculation_tools import CalculationTool
-from rcj_soccer_reinforcement_learning_pybullet.object.court import Court
+from tools.calculation_tools import CalculationTool
+from object import Court
 
 
 class RewardFunction(Court):

@@ -1,6 +1,7 @@
 import os
 from sb3_contrib import RecurrentPPO
-from rcj_soccer_reinforcement_learning_pybullet.environment.environment import Environment
+
+from environment import Environment
 
 
 script_dir = os.path.dirname(__file__)

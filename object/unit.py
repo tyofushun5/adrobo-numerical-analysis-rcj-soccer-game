@@ -1,9 +1,8 @@
 import pybullet as p
 
-from rcj_soccer_reinforcement_learning_pybullet.object.court import Court
-from rcj_soccer_reinforcement_learning_pybullet.object.robot import Agent
-from rcj_soccer_reinforcement_learning_pybullet.object.robot import AlgorithmRobot
-from rcj_soccer_reinforcement_learning_pybullet.tools.calculation_tools import CalculationTool
+from object.court import Court
+from object.robot import Agent
+from tools.calculation_tools import CalculationTool
 
 class Unit(object):
 
