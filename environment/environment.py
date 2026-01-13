@@ -1,4 +1,3 @@
-import random
 import math
 
 import gymnasium as gym
@@ -170,11 +169,15 @@ class Environment(gym.Env):
         min_distance = 0.18
 
         while True:
-            self.agent_random_pos[0] = random.uniform(0.4, 1.5) + self.cp[0]
-            self.agent_random_pos[1] = random.uniform(0.4, 1.8) + self.cp[1]
+            self.agent_random_pos[0] = np.random.uniform(0.4, 1.5) + self.cp[0]
+            self.agent_random_pos[1] = np.random.uniform(0.4, 1.8) + self.cp[1]
 
-            self.ball_random_pos[0] = random.uniform(0.4, 1.5) + self.cp[0]
-            self.ball_random_pos[1] = random.uniform(0.4, 1.8) + self.cp[1]
+            ball_x = np.random.normal(0.95, 0.18)
+            ball_y = np.random.normal(1.1, 0.23)
+            ball_x = max(0.4, min(1.5, ball_x))
+            ball_y = max(0.4, min(1.8, ball_y))
+            self.ball_random_pos[0] = ball_x + self.cp[0]
+            self.ball_random_pos[1] = ball_y + self.cp[1]
 
             dx = self.agent_random_pos[0] - self.ball_random_pos[0]
             dy = self.agent_random_pos[1] - self.ball_random_pos[1]
